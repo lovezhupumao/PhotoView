@@ -13,11 +13,16 @@
         android:background="#761D77"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
+    <FrameLayout
+        android:id="@+id/homeactivity_framelayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/homeactivity_toolbar"></FrameLayout>
+
     <com.ashokvarma.bottomnavigation.BottomNavigationBar
         android:id="@+id/homeactivity_bottom_navigation_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="60dp"/>
+        android:layout_alignParentBottom="true" />
 
 </RelativeLayout>
