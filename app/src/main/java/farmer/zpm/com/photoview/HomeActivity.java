@@ -123,7 +123,7 @@ public class HomeActivity extends AppCompatActivity {
         mBottomBar.mapColorForTab(0, getResources().getColor(R.color.orange));
         mBottomBar.mapColorForTab(1, getResources().getColor(R.color.teal));
         mBottomBar.mapColorForTab(2, getResources().getColor(R.color.blue));
-        mBottomBar.mapColorForTab(3, getResources().getColor(R.color.blue));
+        mBottomBar.mapColorForTab(3, getResources().getColor(R.color.brown));
         mBottomBar.mapColorForTab(4, getResources().getColor(R.color.colorAccent));
     }
 
