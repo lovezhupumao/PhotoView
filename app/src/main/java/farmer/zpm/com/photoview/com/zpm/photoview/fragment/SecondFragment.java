@@ -12,12 +12,15 @@ import android.view.ViewGroup;
 
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
 
+import java.util.concurrent.TimeUnit;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import farmer.zpm.com.photoview.R;
 import farmer.zpm.com.photoview.com.zpm.secondfragment.GetPic;
 import farmer.zpm.com.photoview.com.zpm.secondfragment.PicBean;
 import farmer.zpm.com.photoview.com.zpm.secondfragment.RecylerViewAdapter;
+import okhttp3.OkHttpClient;
 import retrofit2.GsonConverterFactory;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
@@ -44,8 +47,14 @@ public class SecondFragment extends Fragment {
         xRecyclerView.setItemAnimator(new DefaultItemAnimator());
         // 设置固定大小
         xRecyclerView.setHasFixedSize(true);
+       OkHttpClient client=new OkHttpClient.Builder()
+                                            .connectTimeout(30, TimeUnit.SECONDS)
+               .writeTimeout(5, TimeUnit.SECONDS)
+               .readTimeout(5, TimeUnit.SECONDS)
+               .build();
 
         Retrofit retrofit = new Retrofit.Builder()
+                .client(client)
                 .baseUrl("http://apis.baidu.com/txapi/mvtp/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
@@ -62,7 +71,7 @@ public class SecondFragment extends Fragment {
 
                     @Override
                     public void onError(Throwable e) {
-
+                        System.out.println(e.getMessage()+e.getStackTrace());
                     }
 
                     @Override
@@ -82,7 +91,26 @@ public class SecondFragment extends Fragment {
         xRecyclerView.setLoadingListener(new XRecyclerView.LoadingListener() {
             @Override
             public void onRefresh() {
+                    mrecyleradapter.removeAll();
+                pic.getPic("4") .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread()).subscribe(new Subscriber<PicBean>() {
+                    @Override
+                    public void onCompleted() {
+                        xRecyclerView.refreshComplete();
+                    }
 
+                    @Override
+                    public void onError(Throwable e) {
+                        System.out.println(e.getMessage()+e.getStackTrace());
+                        xRecyclerView.refreshComplete();
+                    }
+
+                    @Override
+                    public void onNext(PicBean picBean) {
+                        mrecyleradapter.addList(picBean.getNewslist());
+
+                    }
+                });
             }
 
             @Override
@@ -91,18 +119,19 @@ public class SecondFragment extends Fragment {
                         .observeOn(AndroidSchedulers.mainThread()).subscribe(new Subscriber<PicBean>() {
                     @Override
                     public void onCompleted() {
-
+                        xRecyclerView.loadMoreComplete();
                     }
 
                     @Override
                     public void onError(Throwable e) {
-
+                        System.out.println(e.getMessage()+e.getStackTrace());
+                        xRecyclerView.loadMoreComplete();
                     }
 
                     @Override
                     public void onNext(PicBean picBean) {
                         mrecyleradapter.addList(picBean.getNewslist());
-                        xRecyclerView.loadMoreComplete();
+
                     }
                 });
             }
