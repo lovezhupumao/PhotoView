@@ -72,4 +72,8 @@ public class RecylerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         mlist.addAll(list);
         notifyDataSetChanged();
     }
+    public void removeAll(){
+        mlist.clear();
+        notifyDataSetChanged();
+    }
 }
