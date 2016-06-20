@@ -91,6 +91,7 @@ public class HomeActivity extends AppCompatActivity {
                         } else {
                             ft.show(thirtyFragment);
                         }
+                        break;
                     case R.id.bb_menu_friends:
                         toolbar.setBackgroundColor(getResources().getColor(R.color.brown));
                         if (fourthFragment == null) {
