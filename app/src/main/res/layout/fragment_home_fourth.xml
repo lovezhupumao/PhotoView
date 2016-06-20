@@ -8,6 +8,7 @@
     <com.rey.material.widget.TextView
         android:layout_centerInParent="true"
         android:text="fourth fregment"
+        android:gravity="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 </LinearLayout>
