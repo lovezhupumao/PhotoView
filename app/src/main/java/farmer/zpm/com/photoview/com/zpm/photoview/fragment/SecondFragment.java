@@ -6,12 +6,14 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
 
+import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
@@ -66,16 +68,27 @@ public class SecondFragment extends Fragment {
                 .subscribe(new Subscriber<PicBean>() {
                     @Override
                     public void onCompleted() {
-
+                        Log.i("onCompleted","onCompleted");
                     }
 
                     @Override
                     public void onError(Throwable e) {
+                        Log.i("onError","onError");
                         System.out.println(e.getMessage()+e.getStackTrace());
+                        mrecyleradapter=new RecylerViewAdapter(getActivity(),new ArrayList<PicBean.NewslistBean>());
+                        xRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
+                        // 设置ItemAnimator
+                        xRecyclerView.setItemAnimator(new DefaultItemAnimator());
+                        // 设置固定大小
+                        xRecyclerView.setHasFixedSize(true);
+
+                        // 为mRecyclerView设置适配器
+                        xRecyclerView.setAdapter(mrecyleradapter);
                     }
 
                     @Override
                     public void onNext(PicBean picBean) {
+                        Log.i("onNext","onNext");
                         System.out.println("onNext");
                         mrecyleradapter=new RecylerViewAdapter(getActivity(),picBean.getNewslist());
                         xRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
@@ -103,12 +116,13 @@ public class SecondFragment extends Fragment {
                     public void onError(Throwable e) {
                         System.out.println(e.getMessage()+e.getStackTrace());
                         xRecyclerView.refreshComplete();
+                        Log.i("onRefresh","onError");
                     }
 
                     @Override
                     public void onNext(PicBean picBean) {
                         mrecyleradapter.addList(picBean.getNewslist());
-
+                        Log.i("onRefresh","onNext");
                     }
                 });
             }
