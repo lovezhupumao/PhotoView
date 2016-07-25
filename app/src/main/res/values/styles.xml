@@ -4,6 +4,7 @@
         <item name="colorPrimary">@color/colorAccent</item>
         <item name="colorPrimaryDark">@color/primary_dark</item>
         <item name="colorAccent">#FF4081</item>
+
     </style>
     <!-- Base application theme. -->
     <style name="AppTheme" parent="@style/BaseAppTheme">

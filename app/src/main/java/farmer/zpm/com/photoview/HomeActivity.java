@@ -4,6 +4,9 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.res.Resources;
 import android.support.annotation.IdRes;
+import android.support.design.widget.NavigationView;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -28,6 +31,10 @@ import farmer.zpm.com.photoview.com.zpm.photoview.fragment.ThirtyFragment;
 
 public class HomeActivity extends AppCompatActivity {
 
+    @BindView(R.id.id_drawer_layout)
+    DrawerLayout mDrawerLayout;
+    @BindView(R.id.id_nv_menu)
+    NavigationView mNavigationView;
     @BindView(R.id.homeactivity_bottom_navigation_bar)
     BottomNavigationBar mBottomNavigationBar;
     @BindView(R.id.homeactivity_toolbar)
@@ -46,10 +53,14 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         ButterKnife.bind(this);
+        setSupportActionBar(toolbar);
         fragmentManager=getFragmentManager();
         initBottomBar(savedInstanceState);
         //initBottomBar();
-
+        final ActionBar ab = getSupportActionBar();
+        ab.setHomeAsUpIndicator(R.drawable.ic_friends);
+        ab.setDisplayHomeAsUpEnabled(true);
+        setupDrawerContent(mNavigationView);
 
 
     }
@@ -127,7 +138,22 @@ public class HomeActivity extends AppCompatActivity {
         mBottomBar.mapColorForTab(3, getResources().getColor(R.color.brown));
         mBottomBar.mapColorForTab(4, getResources().getColor(R.color.colorAccent));
     }
+    private void setupDrawerContent(NavigationView navigationView)
+    {
+        navigationView.setNavigationItemSelectedListener(
 
+                new NavigationView.OnNavigationItemSelectedListener()
+                {
+
+                    @Override
+                    public boolean onNavigationItemSelected(MenuItem menuItem)
+                    {
+                        menuItem.setChecked(true);
+                        mDrawerLayout.closeDrawers();
+                        return true;
+                    }
+                });
+    }
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
@@ -204,4 +230,9 @@ public class HomeActivity extends AppCompatActivity {
             ft.hide(fifthFragment);
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_drawer, menu);
+        return true;
+    }
 }
