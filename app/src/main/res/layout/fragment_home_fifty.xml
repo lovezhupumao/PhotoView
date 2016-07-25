@@ -3,9 +3,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white" >
-    <com.rey.material.widget.TextView
+    <ImageView
         android:layout_centerInParent="true"
-        android:text="fifty fregment"
+        android:src="@drawable/ssdk_oks_classic_sinaweibo.png"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
