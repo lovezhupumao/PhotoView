@@ -4,8 +4,9 @@
     android:layout_height="match_parent"
     android:background="@color/white" >
     <ImageView
+        android:id="@+id/weibo"
         android:layout_centerInParent="true"
-        android:src="@drawable/ssdk_oks_classic_sinaweibo.png"
+        android:src="@drawable/ssdk_oks_classic_sinaweibo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
