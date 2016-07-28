@@ -65,7 +65,7 @@
         SortId="1"
         AppKey="2723599121"
         AppSecret="00308010b84115991ed6c4295cf4b61c"
-        RedirectUrl="http://www.sharesdk.cn"
+        RedirectUrl="http://www.weibo.com"
         ShareByAppClient="true"
         Enable="true" />
 
